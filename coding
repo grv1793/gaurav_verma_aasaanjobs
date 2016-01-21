@@ -1,0 +1,150 @@
+technical(subjective)
+1.
+Void find_duplicate(int a[]){
+	Int I,j;
+	I=0;
+	While(i<100){
+			j=(a[i]>=0?a[i]:-a[i]);
+			If(a[j]>=0){
+	 a[j]=-a[j];
+}
+Else{
+	Cout<<j;   //print j (the duplicate one)
+}
+I++;
+}	
+}
+
+3.
+#include <iostream>
+
+using namespace std;
+
+
+
+void merge(int a[],int l,int m,int r){
+        int e,w;
+        e=m-l+1;
+        w=r-m;
+
+        int q[e];
+        int t[w];
+
+        int i,j;
+        for(i=0;i<e;i++){
+            q[i]=a[l+i];
+        }
+        for(j=0;j<w;j++){
+            t[j]=a[m+1+j];
+        }
+
+        i=j=0;
+        int k;
+        k=l;
+        while(i<e&&j<w){
+            if(q[i]>t[j]){
+                a[k]=t[j];
+                k++;
+                j++;
+            }
+            else{
+                a[k]=q[i];
+                k++;
+                i++;
+            }
+
+        }
+        while(i<e){
+            a[k]=q[i];
+            i++;
+            k++;
+        }
+        while(j<w){
+            a[k]=t[j];
+            k++;
+            j++;
+        }
+
+
+}
+
+void mergesort(int a[],int l,int r){
+            if(l<r){
+            int m=(l+r)/2;
+            mergesort(a,l,m);
+            mergesort(a,m+1,r);
+            merge(a,l,m,r);
+}
+}
+
+int maximum(int a,int b){
+    return (a>b?a:b);
+}
+
+int minimum(int a,int b){
+    return (a<b?a:b);
+}
+
+void findsumpair(int a[],int n,int sum){
+            int i=0;
+          while(i<n){
+                if(a[i]+a[n]>sum){
+                n--;
+            }
+            if(a[i]+a[n]<sum){
+                i++;
+            }
+            else{
+                cout<<a[i]<<"\t"<<a[n];
+                return;
+            }
+          }
+
+}
+int main()
+{
+    int a[]={15,5,-20,30,-45};
+    int n=(sizeof(a)/sizeof(a[0]));
+    mergesort(a,0,n-1);
+
+    int i=0;
+    while(i<n){
+        cout<<a[i]<<"\t";
+        i++;
+    }
+    cout<<endl;
+
+    i=0;
+    int c=0;
+    while(i<n){
+        if(a[i]<0){
+            c++;
+        }
+        else{
+            break;
+        }
+        i++;
+    }
+
+
+    i=0;
+    int closest=a[0];
+
+    while(i<c){
+            int j=n-1;
+            while(j>=c){
+                if((a[j]+a[i])<0){
+                    closest=maximum(-closest,a[j]+a[i]);
+
+                }
+                else{
+                    closest=minimum(closest,a[j]+a[i]);
+                }
+                j--;
+            }
+            i++;
+    }
+    //cout<<closest;
+    findsumpair(a,n-1,-closest);
+    return 0;
+}
